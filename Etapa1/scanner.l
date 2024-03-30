@@ -8,6 +8,7 @@ int yylineno;
 %x LINE_COMMENT
 
 %option yylineno
+%option noyywrap
 
 %%
 
