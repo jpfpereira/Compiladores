@@ -1,9 +1,9 @@
 /* Bruno Grohs Vergara e João Pedro Ferreira Pereira
    Prof. Lucas M. Schnorr - Compiladores - Turma B - 2024/1 */
 %{
-#include "tokens.h"
 int line_number = 1;
 int yylineno;
+#include "parser.tab.h"
 %}
 
 %x BIG_COMMENT
@@ -38,6 +38,7 @@ int yylineno;
 [0-9]*\.[0-9]+ {return TK_LIT_FLOAT;}
 
 \n {++line_number;}
+[ \t]
 
 "/*" {BEGIN(BIG_COMMENT);}
 "//" {BEGIN(LINE_COMMENT);}
@@ -52,7 +53,6 @@ int yylineno;
 
 %%
 
-#include "main.c"
     
 int get_line_number(void){
     return yylineno;

@@ -11,4 +11,4 @@ bison: parser.y
 	gcc -c parser.tab.c
 
 clean:
-	rm -f *.o etapa2
+	rm -f *.o *.h etapa2 lex.yy.c parser.tab.c
