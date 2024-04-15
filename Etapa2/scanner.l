@@ -1,7 +1,7 @@
 %{
-#include "tokens.h"
 int line_number = 1;
 int yylineno;
+#include "parser.tab.h"
 %}
 
 %x BIG_COMMENT
