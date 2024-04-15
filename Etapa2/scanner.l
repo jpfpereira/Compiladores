@@ -1,3 +1,5 @@
+/* Bruno Grohs Vergara e João Pedro Ferreira Pereira
+   Prof. Lucas M. Schnorr - Compiladores - Turma B - 2024/1 */
 %{
 int line_number = 1;
 int yylineno;
@@ -27,21 +29,7 @@ int yylineno;
 "&" {return TK_OC_AND;}
 "|" {return TK_OC_OR;}
 
-"-" {return '-';}
-"!" {return '!';}
-"*" {return '*';}
-"/" {return '/';}
-"%" {return '%';}
-"+" {return '+';}
-"<" {return '<';}
-">" {return '>';}
-"{" {return '{';}
-"}" {return '}';}
-"(" {return '(';}
-")" {return ')';}
-"=" {return '=';}
-"," {return ',';}
-";" {return ';';}
+[-!*/%+<>{}()=,;] {return yytext[0];}
 
 "false" {return TK_LIT_FALSE;}
 "true" {return TK_LIT_TRUE;}
@@ -50,6 +38,7 @@ int yylineno;
 [0-9]*\.[0-9]+ {return TK_LIT_FLOAT;}
 
 \n {++line_number;}
+[ \t]
 
 "/*" {BEGIN(BIG_COMMENT);}
 "//" {BEGIN(LINE_COMMENT);}
