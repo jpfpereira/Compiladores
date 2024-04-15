@@ -29,8 +29,7 @@ void yyerror (char const *mensagem);
 
 
 %%
-    
-    
+
     program:                    elements_list
                                 |
                                 ;
@@ -162,8 +161,7 @@ void yyerror (char const *mensagem);
                                 | TK_LIT_FLOAT
                                 | TK_LIT_TRUE
                                 | TK_LIT_FALSE
-                                ;
-    
+                                ;    
 %%
 
 void yyerror (char const *mensagem)
