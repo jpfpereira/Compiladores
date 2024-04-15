@@ -64,7 +64,7 @@ void yyerror (char const *mensagem);
     
     arguments_list:             arguments_list';' argument | argument | ;   /* Lista de argumentos separados por ponto e virgula*/
     
-    argument:                   expression | identifier
+    argument:                   expression
     
     return_operation:           TK_PR_RETURN expression
     
