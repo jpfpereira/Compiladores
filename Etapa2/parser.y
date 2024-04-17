@@ -75,7 +75,7 @@ void yyerror (char const *mensagem);
                                 | attribution
                                 | control_flow_construction
                                 | return_operation 
-                                | command_block
+                                | '{' command_block '}'
                                 | function_call
                                 ;
     
