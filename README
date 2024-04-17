@@ -1,0 +1,14 @@
+
+-> Cada regra pode ter ações 
+-> Exempplo:
+    E: E '+' E { $$ = $1 + $3 }
+    | INT_LIT { $$ = INT_VAL;}
+
+-> $n é o atributp dp mn-ésimo símbolo da regra 
+-> O default é que os atributos sejam do tipo inteiro 
+-> Pode-se mudar o tipo através da diretiva 
+
+    %token<..>  
+    %type<..>
+
+O parser deve gerar o valor léxico
