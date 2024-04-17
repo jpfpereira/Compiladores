@@ -67,8 +67,8 @@ void yyerror (char const *mensagem);
                                 | '{' '}'
                                 ;
     
-    command_block:              '{' command_block command',' '}' 
-                                | '{' command',' '}'
+    command_block:              command_block command','
+                                | command','
                                 ;
     
     command:                    variable_declaration 
@@ -99,9 +99,9 @@ void yyerror (char const *mensagem);
     return_operation:           TK_PR_RETURN expression
                                 ;
     
-    control_flow_construction:  TK_PR_IF '(' expression ')' command_block
-                                | TK_PR_IF '(' expression ')' command_block TK_PR_ELSE command_block
-                                | TK_PR_WHILE '(' expression ')' command_block
+    control_flow_construction:  TK_PR_IF '(' expression ')' '{' command_block '}'
+                                | TK_PR_IF '(' expression ')' '{' command_block '}' TK_PR_ELSE '{' command_block '}'
+                                | TK_PR_WHILE '(' expression ')' '{' command_block '}'
                                 ;
     
     expression:                 expression TK_OC_OR expression2 
