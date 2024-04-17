@@ -63,7 +63,7 @@ void yyerror (char const *mensagem);
     parameter:                  type identifier
                                 ;
     
-    function_body:              command_block 
+    function_body:              '{' command_block '}'
                                 | '{' '}'
                                 ;
     
