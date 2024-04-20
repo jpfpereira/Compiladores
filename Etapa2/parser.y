@@ -4,6 +4,7 @@
 #include <stdio.h>
 int yylex(void);
 void yyerror (char const *mensagem);
+extern int get_line_number(void);
 %}
 
 %token TK_PR_INT
@@ -26,7 +27,7 @@ void yyerror (char const *mensagem);
 %token TK_LIT_TRUE
 %token TK_ERRO
 
-
+%define parse.error verbose
 
 %%
 
@@ -42,20 +43,20 @@ void yyerror (char const *mensagem);
                                 | function_definition
                                 ;
     
-    global_declaration:         type identifier_list ','
+    global_declaration:         type identifier_list ','            /* Lista de identificadores globais eh terminada por virgula e possui um tipo */
                                 ;
     
-    identifier_list:            identifier 
+    identifier_list:            identifier                          /* Lista de identificadores separados por ponto e virgula, com recursao a esquerda */
                                 | identifier_list ';' identifier
                                 ;
     
     function_definition:        function_header function_body
                                 ;
     
-    function_header:            '(' parameters_list ')' TK_OC_OR type '/' identifier
-                                ;
+    function_header:            '(' parameters_list ')' TK_OC_OR type '/' identifier    /* Funcoes com lista de parametros entre parenteses, caracter |, seu tipo, */
+                                ;                                                       /* caracter / e o seu identificador                                        */
     
-    parameters_list:            parameters_list ';' parameter 
+    parameters_list:            parameters_list ';' parameter       /* Lista de parametros da funcao, separados por ponto e virgula */
                                 | parameter
                                 |
                                 ;
@@ -67,7 +68,7 @@ void yyerror (char const *mensagem);
                                 | '{' '}'
                                 ;
     
-    command_block:              command_block command','
+    command_block:              command_block command','        /* Cada comando de um bloco de comandos eh terminado por virgula */
                                 | command','
                                 ;
     
@@ -88,7 +89,7 @@ void yyerror (char const *mensagem);
     function_call:              identifier '('arguments_list')'
                                 ;
     
-    arguments_list:             arguments_list';' argument 
+    arguments_list:             arguments_list';' argument      /* Argumentos de uma chamada de funcao sao separados por ponto e virgula */
                                 | argument
                                 |
                                 ;
@@ -99,12 +100,12 @@ void yyerror (char const *mensagem);
     return_operation:           TK_PR_RETURN expression
                                 ;
     
-    control_flow_construction:  TK_PR_IF '(' expression ')' '{' command_block '}'
+    control_flow_construction:  TK_PR_IF '(' expression ')' '{' command_block '}'       /* Estrutura dos comandos If, com Else opcional*/
                                 | TK_PR_IF '(' expression ')' '{' command_block '}' TK_PR_ELSE '{' command_block '}'
                                 | TK_PR_WHILE '(' expression ')' '{' command_block '}'
                                 ;
     
-    expression:                 expression TK_OC_OR expression2 
+    expression:                 expression TK_OC_OR expression2         /* Ordem de operacoes dadas as regras de precedencia e assiociatividade*/
                                 | expression2
                                 ;
     
@@ -166,5 +167,5 @@ void yyerror (char const *mensagem);
 
 void yyerror (char const *mensagem)
 {
-    printf("%s", mensagem);
+    printf("%s at line %d!", mensagem, get_line_number());
 }
