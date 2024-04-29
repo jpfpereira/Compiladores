@@ -370,9 +370,8 @@ extern int get_line_number(void);
     }
     expression7: '-' expression8
     {
-        $$ = createNode($2)
-        addChild($$, $1)
-        addChild($$, $3)
+        $$ = createNode($1)
+        addChild($$, $2)
     }
     expression7: expression8
     {
